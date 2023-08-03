@@ -1,0 +1,17 @@
+channels:
+  - pytorch 
+  - conda-forge
+  - defaults
+dependencies:
+  - pip=23.1.2
+  - transformers=4.30.2
+  - pytorch=2.0.0
+  - numpy=1.25.0
+  - scikit-learn=1.2.1
+  - catboost=1.1.1
+  - biopython=1.81
+  - pandas=1.5.3
+  - bayesian-optimization=1.4.2
+  - diamond=2.1.6
+  - joblib=1.2.0
+  - sentencepiece=0.1.99
