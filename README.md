@@ -2,7 +2,7 @@
 
 ## Introduction
 
-PhosBoost is a machine learning approach that leverages protein language models and gradient boosting trees to predict protein phosphorylation from experimentally derived data. Despite the precision-recall tradeoff, PhosBoost offers improved performance when recall is prioritized while consistently providing more confident probability scores.
+PhosBoost is a machine learning approach that leverages protein language models and gradient boosting trees to predict protein phosphorylation from experimentally derived data. PhosBoost offers improved performance when recall is prioritized while consistently providing more confident probability scores.
 
 The following files are provided for reproducing results:
 
@@ -113,7 +113,7 @@ sbatch tune.sh name Y 100 equal
 The optimal hyperparameters can be obtained from the log/ subfolder, where nnnnn stands for the batch ID, as to not over-write previous results.
 
 ### 2.2. Training the PhosBoost model
-We provide to options for training a PhosBoost model: 1. Simultaniously trains a PhosBoost model using the combined training and validation sets and then predicts the result using a  Users will have to copy optimal hyperparameters generated in the previous step and manually place them in the PhosBoost.train.predict.py or PhosBoost.train.py  python scripts. 
+We provide to options for training a PhosBoost model: 1. Simultaneously trains a PhosBoost model using the combined training and validation sets and then predicts the result using a  Users will have to copy optimal hyperparameters generated in the previous step and manually place them in the PhosBoost.train.predict.py or PhosBoost.train.py  python scripts. 
 
 
 For training a model, there should be an embedding file and site list files 
@@ -143,7 +143,7 @@ sbatch predict.sh name Y test name
 <a name="inference"></a>
 ## 4. DIAMOND inference
 
-To conduct the DIAMOND pairwise sequence alignment analysis step we need the subject (phosphosite database) fasta file and positive site list and the query (predicted phosphosites) fasta file.
+To conduct the DIAMOND pairwise sequence alignment analysis step, we need the subject (phosphosite database) fasta file and positive site list and the query (predicted phosphosites) fasta file.
 
 ```
 # $1 - Name of the fasta file to be queried against the database
@@ -155,7 +155,7 @@ sbatch infer.sh name qPTMplants 15
 <a name="browser"></a>
 ## 5. Genome browser
 
-This part generates a gff3 file from the genomic gff3 and annotate with the PhosBoost prediction results and the DIAMOND pairwise alignment analysis results. The output gff3 can be uploaded directly to a JBrowse genome browser to visualize the phosphosites on specific genes. The coordinates of each protein were mapped to the genomic coordiantes of the encoding three basepair codon.
+This part generates a new gff3 file from the genomic gff3 and annotate with the PhosBoost prediction results and the DIAMOND pairwise alignment analysis results. The output gff3 can be uploaded directly to a JBrowse genome browser to visualize the phosphosites on specific genes. The coordinates of each protein were mapped to the genomic coordiantes of the encoding three-basepair codon.
 
 ```
 # $1 - Name of GFF3 file
@@ -166,4 +166,4 @@ sbatch gff3.sh name name name name_qPTMplants_15
 
 <a name="citation"></a>
 ## 6. Citation
-The Phosboost manuscript by Poretsky <i>et. al.</i> is currently under review.
+The PhosBoost manuscript by Poretsky <i>et al.</i> is currently under review.
