@@ -6,7 +6,18 @@ from Bio import SeqIO
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
 
-from ptmtools.functions import extract_fasta_sites
+#from ptmtools.functions import extract_fasta_sites
+import re
+def extract_fasta_sites(fasta_path, sites):
+    record_iterator = SeqIO.parse(fasta_path, "fasta")
+    site_list = []
+    for record in record_iterator:
+        for pattern in sites:
+            indices = re.finditer(pattern=pattern, string=str(record.seq))
+            for ix in indices:
+                ix = ix.start()
+                site_list.append(str(record.id)+"_"+pattern+str(ix+1))
+    return(site_list)
 
 ##### Load the files that you want to query against a database
 name = sys.argv[1]
@@ -18,7 +29,7 @@ for record in record_iterator:
     seq_dict[record_id] = SeqRecord(seq=Seq(record_seq), id=record_id, name="", description="")
 
 # Get all phosphosites in the fasta file of interest
-site_list = extract_fasta_sites("data/fasta/{}.fasta".format(name), "STY", 0)
+site_list = extract_fasta_sites("data/fasta/{}.fasta".format(name), "STY")
 #####
 
 
@@ -35,10 +46,10 @@ pos_sites = pd.read_csv("data/sites/{}.sites".format(database_name), header=None
 #####
 
 # Set size of window from each side of phosphosite
-window = int(sys.argv[4])
+window = int(sys.argv[3])
 
 # Set name of the output csv file with inferred sites
-output_name = 'data/inferred/{}_{}_W{}.fa'.format(name, database_name, str(window))
+output_name = 'data/inferred/{}_{}_W{}.tsv'.format(name, database_name, str(window))
 
 ##### Create the temporary fasta files with the window around phosphosites
 tmp_windows_fasta = open("data/tmp/tmp.window.fasta", 'a')

@@ -1,13 +1,13 @@
 #!/bin/bash
 #SBATCH --account=account_name
 #SBATCH --partition=partition_name
-#SBATCH --job-name="embed"   	#name of this job
-#SBATCH -N1                  		#number of nodes
-#SBATCH -n2                  		#number of cores
-#SBATCH --mem=360GB           	#number of memory
-#SBATCH -t 5-00:00:00         		#maximum runtime
-#SBATCH -o "./log/stdout.%j.%N" 	# standard output
-#SBATCH -e "./log/stderr.%j.%N" 	#standard error
+#SBATCH --job-name="embed"
+#SBATCH -N1
+#SBATCH -n2
+#SBATCH --mem=360GB
+#SBATCH -t 5-00:00:00
+#SBATCH -o "./log/stdout.%j.%N"
+#SBATCH -e "./log/stderr.%j.%N"
 
 date
 

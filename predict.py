@@ -39,7 +39,7 @@ model_name = sys.argv[4]
 model = joblib.load("data/models/{}.{}.model".format(model_name, residues))
 
 # Name of the output results saved to data/preds/
-pred_name = sys.argv[4]
+pred_name = sys.argv[5]
 
 preds_proba = model.predict_proba(X)
 

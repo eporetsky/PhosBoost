@@ -4,12 +4,12 @@
 #SBATCH --job-name="infer"
 #SBATCH -N1
 #SBATCH -n1
-#SBATCH --mem=360GB           	#number of memory
-#SBATCH --ntasks=1              #number of nodes
-#SBATCH --cpus-per-task=48	#number of cores
-#SBATCH -t 3-00:00:00         		#maximum runtime
-#SBATCH -o "./log/stdout.%j.%N" 	# standard output
-#SBATCH -e "./log/stderr.%j.%N" 	#standard error
+#SBATCH --mem=360GB
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=48
+#SBATCH -t 3-00:00:00
+#SBATCH -o "./log/stdout.%j.%N"
+#SBATCH -e "./log/stderr.%j.%N"
 
 # $1 - Name of the fasta file to be queried against the database
 # $2 - Name of the database queired, requires both fasta and site files

@@ -4,27 +4,37 @@ import pandas as pd
 import numpy as np
 
 gff_name = sys.argv[1]
-gff_file = 'data/gff3/{}.gff3'
+gff_file = "data/gff3/{}.gff3".format(gff_name)
+gff_output = "data/gff3/{}.phosboost.gff3".format(gff_name)
 # Load the GFF file and get all CDSs
-gff = pd.read_csv("genomes/Hordeum_vulgare.MorexV3_pseudomolecules_assembly.56.gff3", sep="\t", header=None, comment="#")
+gff = pd.read_csv(gff_file, sep="\t", header=None, comment="#")
 gff = gff[gff[2]=="CDS"]
-# Can manually add chromosome names for the next steps in the analysis
-gff = gff[gff[0].isin(['1H', '2H', '3H', '4H', '5H', '6H', '7H'])]
+### Can manually add chromosome names for the next steps in the analysis
+### gff = gff[gff[0].isin(['1H', '2H', '3H', '4H', '5H', '6H', '7H'])]
 # Splits the attribute column and keep the gene ID part
-gff[8] = gff[8].str.split(";").str[1].str.replace("Parent=","").str.replace("transcript:","")
+gff[8] = gff[8].str.split(";").str[1].str.replace("Parent=","").str.replace("transcript:","").str.replace("Name=","")
+
+# This is wheat GFF3 specific but can be used to replace other parts of string if added to gene ID
+gff[8] = gff[8].str.replace(".v2.1", "")
 
 # Load all prediction results
 prediction_name = sys.argv[2]
 
 preds = pd.concat([pd.read_csv("data/preds/{}.ST.all.csv".format(prediction_name)),
-                   pd.read_csv("data/preds/{}.Y.all.csv".format(prediction_name))])
-preds["aa"] = preds.index.str.split("_").str[-1].str[0]
-preds["loc"] = preds.index.str.split("_").str[-1].str[1:].astype(int)
-preds["gene_id"] = preds.index.str.split("_").str[:-1].str.join("_")
+                   pd.read_csv("data/preds/{}.Y.all.csv".format(prediction_name))],
+                   axis=0)
+preds["aa"] = preds["site"].str.split("_").str[-1].str[0]
+preds["loc"] = preds["site"].str.split("_").str[-1].str[1:].astype(int)
+preds["gene_id"] = preds["site"].str.split("_").str[:-1].str.join("_")
 
+# These columns from the GFF3 file are needed for the final GFF3
+cds = gff[[0,1,6,8]].drop_duplicates(8)
+cds.columns = ["seqid", "source","strand", "gene_id"]
+preds = pd.merge(preds, cds, on="gene_id", how="left")
+preds = preds.dropna()
 
 inferred_name = sys.argv[3]
-inferred = pd.read_csv("data/inferred/{}".format(), sep="\t")
+inferred = pd.read_csv("data/inferred/{}".format(inferred_name), sep="\t")
 inferred_dict = inferred.groupby('q_site').apply(lambda x: '|'.join(x['h_site'])).to_dict()
 
 # For all predictions (pos and neg) check if conserved and keep either predicted or conserved sites
@@ -100,13 +110,13 @@ gff_chr_list = []
 with open(gff_file, 'r') as f:
     for line in f:
         # Can stop at the first contig if present, manually edit
-        if line.startswith('#') and "CAJHDD010000001.1" not in line:
+        if line.startswith('#'):
             gff_chr_list.append(line)
         else:
             break
 
-with open('data/jbrowse/{}.phosboost.gff3'.format(gff_file), 'w') as f:
+with open(gff_output, 'w') as f:
     for gff_chr in gff_chr_list:
         f.write(gff_chr)
-    preds["seqid"] = "chr"+preds["seqid"].astype("str")
+    preds["seqid"] = preds["seqid"].astype("str")
     preds.to_csv(f,  sep="\t", header=None, index=False)
