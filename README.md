@@ -164,6 +164,8 @@ This part generates a new gff3 file from the genomic gff3 and annotate with the 
 sbatch gff3.sh name name name name_qPTMplants_15 
 ```
 
+We generated the phosphosite predictions for the maize, wheat, oat and barley that can be uploaded and visualized directly in the genome browser. As a working example, the PhosBoost predictions for the [oat Sang genome](https://graingenes.org/jb/?data=%2Fggds%2Foat-sang&loc=chr1A%3A279100401..279355200&tracks=phospho&highlight=) have been added as a track in the GrainGenes database genome browser.
+
 <a name="citation"></a>
 ## 6. Citation
 The PhosBoost manuscript by Poretsky <i>et al.</i> is currently under review.
