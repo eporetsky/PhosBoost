@@ -122,12 +122,14 @@ For training a model, there should be an embedding file and site list files
 # $2 - Residues to train on ("ST" or "Y")
 # $3 - Name of the param files to use located in data/params/
 # $4 - Name of the output model pkl file that will be saved to the data/models/ folder
+
 sbatch train.sh name ST name name
 sbatch train.sh name Y name name
 ```
 
 <a name="prediction"></a>
 ## 3. Model prediction
+
 If you already have a mode and just want to predict 
 
 Alternatively, if you have a trained model and you just want to predict protein phosphorylation on a given dataset, you can use the following method:
@@ -136,8 +138,10 @@ Alternatively, if you have a trained model and you just want to predict protein 
 # $2 - "ST" to predict Ser/Thr and "Y" to predict Tyr
 # $3 - "all" to predict all sites in embedding file or "test" if to use the test set located in /data/sites 
 # $4 - Name of the model to use located in the data/models
-sbatch predict.sh name ST test name
-sbatch predict.sh name Y test name
+# $5 - Name of the output prediction csv files saved to data/preds/ folder
+
+sbatch predict.sh embedding_name ST all/test model_name output_name
+sbatch predict.sh embedding_name Y all/test model_name output_name
 ```
 
 <a name="inference"></a>
@@ -149,6 +153,7 @@ To conduct the DIAMOND pairwise sequence alignment analysis step, we need the su
 # $1 - Name of the fasta file to be queried against the database
 # $2 - Name of the database queired, requires both fasta and site files
 # $3 - Window size (recommended 15 residues on each side of the phosphosite producing a window size of 31)
+
 sbatch infer.sh name qPTMplants 15
 ``` 
 
@@ -161,6 +166,7 @@ This part generates a new gff3 file from the genomic gff3 and annotate with the 
 # $1 - Name of GFF3 file
 # $2 - Name of prediction file
 # $3 - Name of inferred csv file
+
 sbatch gff3.sh name name name name_qPTMplants_15 
 ```
 
@@ -168,4 +174,5 @@ We generated the phosphosite predictions for the maize, wheat, oat and barley th
 
 <a name="citation"></a>
 ## 6. Citation
+
 The PhosBoost manuscript by Poretsky <i>et al.</i> is currently under review.
