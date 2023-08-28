@@ -5,7 +5,7 @@ import numpy as np
 
 gff_name = sys.argv[1]
 gff_file = "data/gff3/{}.gff3".format(gff_name)
-gff_output = "data/gff3/{}.phosboost.gff3".format(gff_name)
+gff_output = "data/gff3/{}.phosboost.gff3".format(gff_name.replace(".gff3", ""))
 # Load the GFF file and get all CDSs
 gff = pd.read_csv(gff_file, sep="\t", header=None, comment="#")
 gff = gff[gff[2]=="CDS"]
@@ -34,7 +34,7 @@ preds = pd.merge(preds, cds, on="gene_id", how="left")
 preds = preds.dropna()
 
 inferred_name = sys.argv[3]
-inferred = pd.read_csv("data/inferred/{}".format(inferred_name), sep="\t")
+inferred = pd.read_csv("data/inferred/{}.tsv".format(inferred_name), sep="\t")
 inferred_dict = inferred.groupby('q_site').apply(lambda x: '|'.join(x['h_site'])).to_dict()
 
 # For all predictions (pos and neg) check if conserved and keep either predicted or conserved sites

@@ -150,8 +150,8 @@ sbatch predict.sh embedding_name Y all/test model_name output_name
 To conduct the DIAMOND pairwise sequence alignment analysis step, we need the subject (phosphosite database) fasta file and positive site list and the query (predicted phosphosites) fasta file.
 
 ```
-# $1 - Name of the fasta file to be queried against the database
-# $2 - Name of the database queired, requires both fasta and site files
+# $1 - Name of the fasta file to be queried against the database (without .fasta ending)
+# $2 - Name of the queried database, requires both a fasta (without .fasta ending) and a sites file (without .sites ending) with matching names
 # $3 - Window size (recommended 15 residues on each side of the phosphosite producing a window size of 31)
 
 sbatch infer.sh name qPTMplants 15
@@ -163,11 +163,12 @@ sbatch infer.sh name qPTMplants 15
 This part generates a new gff3 file from the genomic gff3 and annotate with the PhosBoost prediction results and the DIAMOND pairwise alignment analysis results. The output gff3 can be uploaded directly to a JBrowse genome browser to visualize the phosphosites on specific genes. The coordinates of each protein were mapped to the genomic coordiantes of the encoding three-basepair codon.
 
 ```
-# $1 - Name of GFF3 file
-# $2 - Name of prediction file
-# $3 - Name of inferred csv file
+# $1 - Name of GFF3 file (without .gff3 ending) located in /data/gff3/
+# $2 - Name of prediction file (without .tsv ending) located in /data/preds/
+# $3 - Name of inferred csv file (without .csv ending) located in /data/inferred/
+Note: Output gff3 file will be saved to the /data/gff3/ folder with "$1.phosboost.gff3" name 
 
-sbatch gff3.sh name name name name_qPTMplants_15 
+sbatch gff3.sh name name name_qPTMplants_15 
 ```
 
 We generated the phosphosite predictions for the maize, wheat, oat and barley that can be uploaded and visualized directly in the genome browser. As a working example, the PhosBoost predictions for the [oat Sang genome](https://graingenes.org/jb/?data=%2Fggds%2Foat-sang&loc=chr1A%3A279100401..279355200&tracks=phospho&highlight=) have been added as a track in the GrainGenes database genome browser.

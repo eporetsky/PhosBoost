@@ -37,7 +37,7 @@ site_list = extract_fasta_sites("data/fasta/{}.fasta".format(name), "STY")
 # Get the path for the database fasta file 
 database_name = sys.argv[2]
 database_fasta = "data/fasta/{}.fasta".format(database_name)
-tmp_diamond_db = "data/tmp/tmp.window.dmnd.db"
+tmp_diamond_db = "data/tmp/tmp.window"
 # Prepare the blast output data to parse
 os.system("diamond makedb --in {} --db {}".format(database_fasta, tmp_diamond_db))
 
@@ -78,9 +78,12 @@ for site in site_list:
         right += abs(left)
         aa_ix -= abs(left)
         left = 0
+    
     # Site name is followed by the coordinate of the phosphosite in the seq
     tmp_windows_fasta.write(">"+site+"|"+str(aa_ix+1)+"\n")
-    tmp_windows_fasta.write(seq[left:right]+"\n")
+    
+    # Can be modified to replace problematic strings in input fasta file
+    tmp_windows_fasta.write(seq[left:right].replace(".","N")+"\n")
 tmp_windows_fasta.close()
 
 tmp_windows_fasta = "data/tmp/tmp.window.fasta"
