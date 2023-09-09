@@ -171,7 +171,10 @@ Note: Output gff3 file will be saved to the /data/gff3/ folder with "$1.phosboos
 sbatch gff3.sh name name name_qPTMplants_15 
 ```
 
-We generated the phosphosite predictions for the maize, wheat, oat and barley that can be uploaded and visualized directly in the genome browser. As a working example, the PhosBoost predictions for the [oat Sang genome](https://graingenes.org/jb/?data=%2Fggds%2Foat-sang&loc=chr1A%3A279100401..279355200&tracks=phospho&highlight=) have been added as a track in the GrainGenes database genome browser.
+We generated the phosphosite predictions for the maize, wheat, oat and barley that can be uploaded and visualized directly in the genome browser. As a working example, the PhosBoost predictions for three genomes have been added as a track in the GrainGenes database genome browser:
+[1. Triticum aestivum, Wheat, Chinese Spring), IWGSC v2.1](https://wheat.pw.usda.gov/jb/?data=%2Fggds%2Fwhe-iwgsc2&loc=Chr4A%3A464914683..464930415&tracks=iwgsc1_hc%2Cphospho&highlight=)
+[1. Hordeum Vulgare, Barley cv. Morex v3](https://wheat.pw.usda.gov/jb/?data=%2Fggds%2Fbar-morex3&loc=chr1H%3A259132047..259144786&tracks=hc%2Cggphospho&highlight=)
+[1. Avena sativa, Oat Sang v1](https://wheat.pw.usda.gov/jb/?data=%2Fggds%2Foat-sang&loc=chr1A%3A279100332..279355131&tracks=hc11%2Cphospho&highlight=)
 
 <a name="citation"></a>
 ## 6. Citation
