@@ -8,8 +8,6 @@ from sklearn.ensemble import StackingClassifier
 from sklearn.linear_model import LogisticRegression
 
 # Name of the embedding file(s) located in the data/embeddings/ folder for model training
-# Optional: To combine multiple embedding files comma-separate each input file name
-# (For example: combining training and validation data after hyperparameter tuning)
 name = sys.argv[1]
 # Load the embedding data file(s) for the model to be trained on
 X_train = pd.read_pickle("data/embeddings/{}.pkl".format(name))
