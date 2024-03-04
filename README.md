@@ -179,4 +179,8 @@ We generated the phosphosite predictions for the maize, wheat, oat and barley th
 <a name="citation"></a>
 ## 6. Citation
 
-The PhosBoost manuscript by Poretsky <i>et al.</i> is currently under review.
+The open-access PhosBoost manuscript is now available in [Plant Direct](https://onlinelibrary.wiley.com/doi/full/10.1002/pld3.554).
+
+Poretsky, E., Andorf, C. M., & Sen, T. Z. (2023). PhosBoost: Improved phosphorylation prediction recall using gradient boosting and protein language models. Plant Direct, 7(12), e554.
+
+Send us an email or open a GitHub issue for any questions or requests. We can also help generating genome-wide phosphosite predictions for other genomes.
